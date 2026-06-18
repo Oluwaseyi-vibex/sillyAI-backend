@@ -11,7 +11,6 @@ const COOKIE_OPTIONS = {
   maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in ms
 };
 
-// ─── POST /api/v1/auth/register ───────────────────────────────────────────────
 
 export const register = catchAsync(async (req: Request, res: Response, _next: NextFunction) => {
   const { user, token } = await authService.register(

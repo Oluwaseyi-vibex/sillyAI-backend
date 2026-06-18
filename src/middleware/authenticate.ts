@@ -28,6 +28,8 @@ export function authenticate(req: Request, _res: Response, next: NextFunction): 
       token = req.cookies.token as string;
     }
 
+    console.log("authenticate middleware:", { authHeader, cookies: req.cookies, token });
+
     if (!token) {
       throw new AppError('Authentication required. Please log in.', 401);
     }

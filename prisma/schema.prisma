@@ -27,3 +27,29 @@ model User {
 
   @@map("users")
 }
+
+model LearningPath {
+  id        String   @id @default(cuid())
+  userId    String
+  topic     String
+  level     String   // "Complete Beginner", "Student", "Professional"
+  pathJson  Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  lessons   LessonDetail[]
+
+  @@unique([userId, topic, level])
+}
+
+model LessonDetail {
+  id              String   @id @default(cuid())
+  learningPathId  String
+  lessonId        Int
+  contentJson     Json
+  createdAt       DateTime @default(now())
+
+  learningPath    LearningPath @relation(fields: [learningPathId], references: [id], onDelete: Cascade)
+
+  @@unique([learningPathId, lessonId])
+}
